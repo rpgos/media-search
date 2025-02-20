@@ -3,6 +3,8 @@ source "https://rubygems.org"
 ruby "3.0.7"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem 'dotenv', '~> 3.1', '>= 3.1.7'
+gem 'elasticsearch', '~> 8.8'
 gem 'io-console', '~> 0.7.2'
 gem "rails", "~> 7.1.5"
 
