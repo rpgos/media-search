@@ -2,6 +2,8 @@
 
 class ElasticsearchService
   BASE_URL = 'https://www.imago-images.de'
+  DEFAULT_PAGE = 1
+  DEFAULT_SIZE = 12
 
   def self.client
     @client ||= Elasticsearch::Client.new(
@@ -14,19 +16,32 @@ class ElasticsearchService
     )
   end
 
-  def self.search(query, index = 'imago')
+  def self.search(query, page = DEFAULT_PAGE, index = 'imago')
+    page = page.to_i
+    from = (page - 1) * DEFAULT_SIZE
+
     response = client.search(
       index: index,
-      q: query,
-      # body: {
-      #   # _source: ["title", "description", "url", "image_url"],
-      #   query: {
-      #     multi_match: {
-      #       query: query,
-      #       # fields: ['title^5', 'description']
-      #     }
-      #   }
-      # }
+      body: {
+        query: {
+          bool: {
+            must: [
+              {
+                multi_match: {
+                  query: query,
+                  fields: ['suchtext^3', 'fotografen']
+                }
+              } 
+            ],
+            filter: [
+              { exists: { field: 'bildnummer' } },
+              { exists: { field: 'db' } }
+            ]
+          }
+        },
+        from: from,
+        size: DEFAULT_SIZE
+      }
     )
 
     format_results(response['hits']['hits'])
