@@ -37,7 +37,7 @@ class ElasticsearchService
             {
               multi_match: {
                 query: query,
-                fields: ['description^3', 'suchtext^3', 'title^2', 'fotografen']
+                fields: ['title^5', 'description^3', 'suchtext^3', 'fotografen']
               }
             }
           ],
@@ -93,7 +93,8 @@ class ElasticsearchService
     {
       id: hit['_id'],
       date: source['datum'],
-      description: source['suchtext'],
+      title: source['title'],
+      description: source['description'] || source['suchtext'],
       photographer: source['fotografen'],
       height: source['hoehe'].to_i,
       width: source['breite'].to_i,

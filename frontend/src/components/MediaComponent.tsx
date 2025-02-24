@@ -1,4 +1,5 @@
 import { Media } from "@/api/@types"
+import { Dialog } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 
 interface MediaComponentProps {
@@ -19,6 +20,21 @@ export function MediaComponent({ media }: MediaComponentProps) {
   if (!isValid) return null;
 
   return (
-    <img src={media.image_url} alt={media.description} className='rounded md:max-w-[33rem]' />
+    <Dialog.Root>
+      <Dialog.Trigger className="cursor-pointer">
+        <img src={media.image_url} alt={media.description} className='rounded md:max-w-[33rem]' />
+    	</Dialog.Trigger>
+      <Dialog.Content className="flex flex-col items-center">
+        <Dialog.Title>{media.title}</Dialog.Title>
+        <Dialog.Description size="2" mb="4">
+          {media.description}
+        </Dialog.Description>
+        <img src={media.image_url} alt={media.description} className='rounded md:max-w-[33rem]' />
+        <div>
+          <span>Photographer: </span>
+          <span>{media.photographer}</span>
+        </div>
+      </Dialog.Content>
+    </Dialog.Root>
   )
 }

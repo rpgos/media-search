@@ -20,8 +20,7 @@ function App() {
   const hasNoResults = () => {
     return !isLoading && images.length === 0 && searchTerm !== ''
   }
-  // TODO: open dialog with picture details
-  // TODO: add date filter
+
   return (
     <div className='flex flex-col items-center rounded p-4'>
       <img src='/imago.svg' className='w-40 mb-4' alt='Imago Logo' />
