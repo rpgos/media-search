@@ -27,26 +27,27 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
   }, [db, order])
 
   return (
-    <div className="flex gap-6 items-center">
-      <form onSubmit={handleSubmit} className="relative">
+    <div className="flex flex-col md:flex-row gap-6 md:w-full lg:w-auto md:items-center">
+      <form onSubmit={handleSubmit} className="relative flex-1">
         <Input className="lg:w-[30rem]" placeholder='Type and press Enter to search' value={query} onChange={(e) => setQuery(e.target.value)} />
         <CornerDownLeft className="absolute w-4 top-2 right-2" />
       </form>
-      <div className='flex justify-around gap-2'>
+      <div className='flex md:justify-around gap-2'>
         <Button onClick={() => setDb('')} variant={db === '' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">All</Button>
         <Button onClick={() => setDb('stock')} variant={db === 'stock' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">Stock</Button>
         <Button onClick={() => setDb('sport')} variant={db === 'sport' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">Sport</Button>
+        
+        <Select.Root defaultValue="desc" onValueChange={(value) => setOrder(value)}>
+          <Select.Trigger />
+          <Select.Content>
+            <Select.Group>
+              <Select.Label>Order</Select.Label>
+              <Select.Item value="desc">Newest</Select.Item>
+              <Select.Item value="asc">Oldest</Select.Item>
+            </Select.Group>
+          </Select.Content>
+        </Select.Root>
       </div>
-      <Select.Root defaultValue="desc" onValueChange={(value) => setOrder(value)}>
-        <Select.Trigger />
-        <Select.Content>
-          <Select.Group>
-            <Select.Label>Order</Select.Label>
-            <Select.Item value="desc">Newest</Select.Item>
-            <Select.Item value="asc">Oldest</Select.Item>
-          </Select.Group>
-        </Select.Content>
-      </Select.Root>
     </div>
   )
 }
