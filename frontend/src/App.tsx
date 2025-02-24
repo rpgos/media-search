@@ -3,6 +3,7 @@ import './App.css'
 import { Filters, SearchBar } from './components/SearchBar'
 import { useGetMedia } from './hooks/useGetMedia'
 import { SkeletonPictures } from './components/SkeletonPictures'
+import { NoResults } from './components/NoResults'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -14,10 +15,13 @@ function App() {
     setFilters(searchFilters)
   }
 
+  const hasNoResults = () => {
+    return !isLoading && images.length === 0 && searchTerm !== ''
+  }
   // TODO: open dialog with picture details
   // TODO: add infinite scroll
-
-  // TODO: add error state
+  // TODO: deal with wrong urls
+  
   // TODO: add date filter
   return (
     <div className='h-screen flex flex-col items-center rounded p-4'>
@@ -34,6 +38,9 @@ function App() {
           ))
         }
       </div>
+      {
+        hasNoResults() && <NoResults />
+      }
     </div>
   )
 }
