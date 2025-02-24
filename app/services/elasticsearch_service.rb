@@ -37,7 +37,7 @@ class ElasticsearchService
             {
               multi_match: {
                 query: query,
-                fields: ['suchtext^3', 'fotografen']
+                fields: ['description^3', 'suchtext^3', 'title^2', 'fotografen']
               }
             }
           ],
@@ -58,7 +58,7 @@ class ElasticsearchService
     filter_conditions << { exists: { field: 'db' } }
 
     filter_conditions << { term: { 'fotografen.keyword' => filters[:photographer] } } if filters[:photographer].present?
-    filter_conditions << { term: { 'db.keyword' => filters[:db] } } if filters[:db].present?
+    filter_conditions << { term: { 'db' => filters[:db] } } if filters[:db].present?
     filter_conditions << { range: { 'hoehe' => { gte: filters[:min_height].to_i } } } if filters[:min_height].present?
     filter_conditions << { range: { 'breite' => { gte: filters[:min_width].to_i } } } if filters[:min_width].present?
 

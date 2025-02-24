@@ -6,7 +6,7 @@ import { useGetMedia } from './hooks/useGetMedia'
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filters, setFilters] = useState<Filters>({ db: '', sortDirection: '' })
-  const { images } = useGetMedia({ query: searchTerm, sortDirection: filters.sortDirection })
+  const { images } = useGetMedia({ query: searchTerm, sortDirection: filters.sortDirection, db: filters.db })
 
   const handleSearch = (query: string, searchFilters: Filters = {}) => {
     setSearchTerm(query)

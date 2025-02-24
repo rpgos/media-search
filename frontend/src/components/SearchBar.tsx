@@ -32,8 +32,8 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
       </form>
       <div className='flex justify-around gap-2'>
         <Button onClick={() => setDb('')} variant={db === '' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">All</Button>
-        <Button onClick={() => setDb('st')} variant={db === 'st' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">Stock</Button>
-        <Button onClick={() => setDb('sp')} variant={db === 'sp' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">Sport</Button>
+        <Button onClick={() => setDb('stock')} variant={db === 'stock' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">Stock</Button>
+        <Button onClick={() => setDb('sport')} variant={db === 'sport' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">Sport</Button>
       </div>
       <Select.Root defaultValue="desc" onValueChange={(value) => setOrder(value)}>
         <Select.Trigger />
