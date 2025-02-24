@@ -1,18 +1,29 @@
 import { Button, Select } from '@radix-ui/themes'
 import { Input } from '@/components/ui/input'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface SearchBarProps {
-  onSubmit: (query: string) => void
+  onSubmit: (query: string, filters?: Filters) => void
+}
+
+export interface Filters {
+  db?: string
+  sortDirection?: string
 }
 
 export function SearchBar({ onSubmit }: SearchBarProps) {
   const [query, setQuery] = useState('')
+  const [db, setDb] = useState('')
+  const [order, setOrder] = useState('desc')
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    onSubmit(query)
+    onSubmit(query, { db, sortDirection: order })
   }
+
+  useEffect(() => {
+    onSubmit(query, { db, sortDirection: order })
+  }, [db, order])
 
   return (
     <div className="flex gap-6 items-center">
@@ -20,17 +31,17 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
         <Input className="lg:w-[30rem]" placeholder='Search' value={query} onChange={(e) => setQuery(e.target.value)} />
       </form>
       <div className='flex justify-around gap-2'>
-        <Button variant="outline" color="gray" radius="full" className="p-6">All</Button>
-        <Button variant="outline" color="gray" radius="full" className="p-6">Stock</Button>
-        <Button variant="outline" color="gray" radius="full" className="p-6">Sport</Button>
+        <Button onClick={() => setDb('')} variant={db === '' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">All</Button>
+        <Button onClick={() => setDb('st')} variant={db === 'st' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">Stock</Button>
+        <Button onClick={() => setDb('sp')} variant={db === 'sp' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">Sport</Button>
       </div>
-      <Select.Root defaultValue="newest">
+      <Select.Root defaultValue="desc" onValueChange={(value) => setOrder(value)}>
         <Select.Trigger />
         <Select.Content>
           <Select.Group>
             <Select.Label>Order</Select.Label>
-            <Select.Item value="newest">Newest</Select.Item>
-            <Select.Item value="Oldest">Oldest</Select.Item>
+            <Select.Item value="desc">Newest</Select.Item>
+            <Select.Item value="asc">Oldest</Select.Item>
           </Select.Group>
         </Select.Content>
       </Select.Root>
