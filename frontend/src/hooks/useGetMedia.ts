@@ -16,7 +16,7 @@ export const useGetMedia = ({ query, sortDirection, db }: GetMediaParams) => {
     },
   })
 
-  const images: Media[] = infiniteQuery.data?.pages.reduce(page => page.results).results || []
+  const images: Media[] = infiniteQuery.data?.pages.flatMap(page => page.results) || []
 
   return {
     ...infiniteQuery,
