@@ -5,6 +5,7 @@ import { useGetMedia } from './hooks/useGetMedia'
 import { SkeletonPictures } from './components/SkeletonPictures'
 import { NoResults } from './components/NoResults'
 import { Button } from '@radix-ui/themes'
+import { MediaComponent } from './components/MediaComponent'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -20,8 +21,6 @@ function App() {
     return !isLoading && images.length === 0 && searchTerm !== ''
   }
   // TODO: open dialog with picture details
-  // TODO: deal with wrong urls
-  
   // TODO: add date filter
   return (
     <div className='flex flex-col items-center rounded p-4'>
@@ -32,7 +31,7 @@ function App() {
       <div className='flex flex-wrap gap-4 mt-4 justify-center'>
         {
           images.map((image) => (
-            <img key={image.id} src={image.image_url} alt={image.description} className='rounded md:max-w-[33rem]' />
+            <MediaComponent key={image.id} media={image} />
           ))
         }
       </div>
