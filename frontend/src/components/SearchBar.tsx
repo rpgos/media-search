@@ -1,6 +1,7 @@
 import { Button, Select } from '@radix-ui/themes'
 import { Input } from '@/components/ui/input'
 import { useEffect, useState } from 'react'
+import { CornerDownLeft } from 'lucide-react'
 
 interface SearchBarProps {
   onSubmit: (query: string, filters?: Filters) => void
@@ -27,8 +28,9 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
 
   return (
     <div className="flex gap-6 items-center">
-      <form onSubmit={handleSubmit}>
-        <Input className="lg:w-[30rem]" placeholder='Search' value={query} onChange={(e) => setQuery(e.target.value)} />
+      <form onSubmit={handleSubmit} className="relative">
+        <Input className="lg:w-[30rem]" placeholder='Type and press Enter to search' value={query} onChange={(e) => setQuery(e.target.value)} />
+        <CornerDownLeft className="absolute w-4 top-2 right-2" />
       </form>
       <div className='flex justify-around gap-2'>
         <Button onClick={() => setDb('')} variant={db === '' ? 'solid' : 'outline'} color="gray" radius="full" className="p-6">All</Button>
