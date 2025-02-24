@@ -2,22 +2,31 @@ import { useState } from 'react'
 import './App.css'
 import { Filters, SearchBar } from './components/SearchBar'
 import { useGetMedia } from './hooks/useGetMedia'
+import { SkeletonPictures } from './components/SkeletonPictures'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [filters, setFilters] = useState<Filters>({ db: '', sortDirection: '' })
-  const { images } = useGetMedia({ query: searchTerm, sortDirection: filters.sortDirection, db: filters.db })
+  const { images, isLoading } = useGetMedia({ query: searchTerm, sortDirection: filters.sortDirection, db: filters.db })
 
   const handleSearch = (query: string, searchFilters: Filters = {}) => {
     setSearchTerm(query)
     setFilters(searchFilters)
   }
 
+  // TODO: open dialog with picture details
+  // TODO: add infinite scroll
+
+  // TODO: add error state
+  // TODO: add date filter
   return (
     <div className='h-screen flex flex-col items-center rounded p-4'>
       <img src='/imago.svg' className='w-40 mb-4' alt='Imago Logo' />
       <p className="font-bold mb-4">Search through our collection of high-quality images</p>
       <SearchBar onSubmit={handleSearch} />
+      {
+        isLoading && <SkeletonPictures />
+      }
       <div className='flex flex-wrap gap-4 mt-4 justify-center'>
         {
           images.map((image) => (

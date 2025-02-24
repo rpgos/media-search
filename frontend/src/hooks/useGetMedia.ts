@@ -5,6 +5,7 @@ import { Media } from "@/api/@types"
 export const useGetMedia = ({ query, sortDirection, db }: GetMediaParams) => {
   const infiniteQuery = useInfiniteQuery({
     queryKey: ['media', { sortDirection, query, db }],
+    enabled: query !== '',
     queryFn: ({ pageParam }) => getMedia({ page: pageParam, query, sortDirection, db }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
