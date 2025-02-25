@@ -40,10 +40,12 @@ gem 'rack-cors'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
+  gem 'debug', platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
+  gem 'pry', '~> 0.15.0'
+  gem 'pry-byebug'
+  gem 'rspec-rails', '~> 7.0.0'
 end
 
 group :development do
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem 'shoulda-matchers', '~> 5.3'
 end
