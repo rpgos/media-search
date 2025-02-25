@@ -39,11 +39,22 @@ class ElasticsearchService
     {
       query: {
         bool: {
+          should: [
+            {
+              match_phrase: {
+                title: {
+                  query: query,
+                  slop: 2
+                }
+              }
+            }
+          ],
           must: [
             {
               multi_match: {
                 query: query,
-                fields: ['title^5', 'description^3', 'suchtext^3', 'fotografen']
+                fields: ['title^5', 'description^3', 'suchtext^3', 'fotografen'],
+                minimum_should_match: '70%'
               }
             }
           ],
