@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query"
-import { getMedia, GetMediaParams } from "@/api/getMedia"
-import { Media } from "@/api/@types"
+import { getMedia, GetMediaParams } from "../api/getMedia"
+import { Media } from "../api/@types"
 
 export const useGetMedia = ({ query, sortDirection, db }: GetMediaParams) => {
   const infiniteQuery = useInfiniteQuery({

@@ -1,5 +1,5 @@
 import { Button, Select } from '@radix-ui/themes'
-import { Input } from '@/components/ui/input'
+import { Input } from '../components/ui/input'
 import { useEffect, useState } from 'react'
 import { CornerDownLeft } from 'lucide-react'
 

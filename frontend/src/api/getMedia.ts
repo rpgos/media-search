@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiUrls } from "@/constants";
+import { apiUrls } from "../constants";
 
 export interface GetMediaParams {
   page?: number

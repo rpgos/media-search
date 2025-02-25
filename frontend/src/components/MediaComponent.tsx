@@ -1,4 +1,4 @@
-import { Media } from "@/api/@types"
+import { Media } from "../api/@types"
 import { Dialog } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 
