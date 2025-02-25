@@ -23,7 +23,10 @@
     cd media-search
     ```
 
-2. Start the containers and create DB
+2. Duplicate the file `example.env` and rename the copy to `.env`
+3. Set the env variables in the file
+
+4. Start the containers and create DB
 
     ```
     docker compose up -d
@@ -33,10 +36,6 @@
     docker compose exec rails bundle exec rails db:create
     ```
 
-3. Duplicate the file `example.env` and rename the copy it to `.env`
-
-
-4. Set the env variables in the file
 5. Now visit on your browser http://localhost:5173
 
 
