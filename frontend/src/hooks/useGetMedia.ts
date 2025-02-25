@@ -14,6 +14,7 @@ export const useGetMedia = ({ query, sortDirection, db }: GetMediaParams) => {
       }
       return undefined
     },
+    staleTime: 1000 * 60 * 2 // 2 minutes
   })
 
   const images: Media[] = infiniteQuery.data?.pages.flatMap(page => page.results) || []
