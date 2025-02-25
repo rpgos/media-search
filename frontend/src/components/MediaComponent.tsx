@@ -22,7 +22,7 @@ export function MediaComponent({ media }: MediaComponentProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger className="cursor-pointer">
-        <img src={media.image_url} alt={media.description} className='rounded md:max-w-[33rem]' />
+        <img src={media.image_url} alt={media.description} className='border border-[2px] rounded md:max-w-[33rem]' />
     	</Dialog.Trigger>
       <Dialog.Content className="flex flex-col items-center">
         <Dialog.Title>{media.title}</Dialog.Title>
