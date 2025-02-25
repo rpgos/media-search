@@ -13,7 +13,8 @@ class ElasticsearchService
       password: ENV.fetch('ELASTICSEARCH_PASSWORD'),
       transport_options: {
         ssl: { verify: false }
-      }
+      },
+      log: true
     )
   end
 
@@ -26,7 +27,12 @@ class ElasticsearchService
       body: build_search_body(query, filters, from)
     )
 
+    Rails.logger.info("[ES SEARCH] Query: #{query}")
+    Rails.logger.info("[ES SEARCH] Results: #{response.dig('hits', 'total', 'value')} hits found")
     format_results(response, page)
+  rescue StandardError => e
+    Rails.logger.error("[ES ERROR] Failed search query: #{e.message}")
+    raise
   end
 
   def self.build_search_body(query, filters, from)
