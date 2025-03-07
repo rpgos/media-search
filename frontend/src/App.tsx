@@ -9,7 +9,7 @@ import { MediaComponent } from './components/MediaComponent'
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [filters, setFilters] = useState<Filters>({ db: '', sortDirection: '' })
+  const [filters, setFilters] = useState<Filters>({ db: '', sortDirection: '', photographer: '' })
   const {
     images,
     isLoading,
@@ -17,8 +17,9 @@ function App() {
     hasNextPage,
     isFetching,
     isError
-  } = useGetMedia({ query: searchTerm, sortDirection: filters.sortDirection, db: filters.db })
+  } = useGetMedia({ query: searchTerm, sortDirection: filters.sortDirection, db: filters.db, photographer: filters.photographer })
 
+  // useCallback
   const handleSearch = (query: string, searchFilters: Filters = {}) => {
     setSearchTerm(query)
     setFilters(searchFilters)

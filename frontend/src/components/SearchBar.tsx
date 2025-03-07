@@ -1,7 +1,8 @@
 import { Button, Select } from '@radix-ui/themes'
 import { Input } from '../components/ui/input'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { CornerDownLeft } from 'lucide-react'
+import { CustomFilter } from './CustomFilter'
 
 interface SearchBarProps {
   onSubmit: (query: string, filters?: Filters) => void
@@ -9,22 +10,24 @@ interface SearchBarProps {
 
 export interface Filters {
   db?: string
-  sortDirection?: string
+  sortDirection?: string,
+  photographer?: string
 }
 
 export function SearchBar({ onSubmit }: SearchBarProps) {
   const [query, setQuery] = useState('')
   const [db, setDb] = useState('')
   const [order, setOrder] = useState('desc')
+  const [photographer, setPhotographer] = useState('')
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    onSubmit(query, { db, sortDirection: order })
+    onSubmit(query, { db, sortDirection: order, photographer })
   }
-
+  
   useEffect(() => {
-    onSubmit(query, { db, sortDirection: order })
-  }, [db, order])
+    onSubmit(query, { db, sortDirection: order, photographer })
+  }, [db, order, photographer])
 
   return (
     <div className="flex flex-col md:flex-row gap-6 md:w-full lg:w-auto md:items-center">
@@ -47,6 +50,10 @@ export function SearchBar({ onSubmit }: SearchBarProps) {
             </Select.Group>
           </Select.Content>
         </Select.Root>
+
+        <Suspense fallback={<div>Loading...</div>}>
+          <CustomFilter filter='photographers' onChange={(value) => setPhotographer(value)} />
+        </Suspense>
       </div>
     </div>
   )

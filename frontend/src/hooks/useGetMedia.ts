@@ -2,11 +2,11 @@ import { useInfiniteQuery } from "@tanstack/react-query"
 import { getMedia, GetMediaParams } from "../api/getMedia"
 import { Media } from "../api/@types"
 
-export const useGetMedia = ({ query, sortDirection, db }: GetMediaParams) => {
+export const useGetMedia = ({ query, sortDirection, db, photographer }: GetMediaParams) => {
   const infiniteQuery = useInfiniteQuery({
-    queryKey: ['media', { sortDirection, query, db }],
+    queryKey: ['media', { sortDirection, query, db, photographer }],
     enabled: query !== '',
-    queryFn: ({ pageParam }) => getMedia({ page: pageParam, query, sortDirection, db }),
+    queryFn: ({ pageParam }) => getMedia({ page: pageParam, query, sortDirection, db, photographer }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       if (lastPage.current_page < lastPage.total_pages) {

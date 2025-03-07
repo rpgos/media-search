@@ -6,16 +6,18 @@ export interface GetMediaParams {
   sortDirection?: string
   query?: string
   db?: string
+  photographer?: string
 }
 
-export async function getMedia({ page, sortDirection, query, db }: GetMediaParams) {
+export async function getMedia({ page, sortDirection, query, db, photographer }: GetMediaParams) {
   const { data } =  await axios.get(apiUrls.base + apiUrls.media,
     {
       params: {
         page,
         sort_direction: sortDirection,
         query,
-        db
+        db,
+        photographer
       }
     }
   )
