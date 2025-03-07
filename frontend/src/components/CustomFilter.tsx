@@ -14,14 +14,14 @@ export function CustomFilter({ filter, onChange }: CustomFilterProps) {
   })
 
   return (
-    <Select.Root defaultValue="" onValueChange={(value) => onChange(value)}>
-      <Select.Trigger />
+    <Select.Root onValueChange={(value) => onChange(value)}>
+      <Select.Trigger placeholder={filter} className="capitalize" />
       <Select.Content>
         <Select.Group>
-          <Select.Label>Photographer</Select.Label>
+          <Select.Label className="capitalize">{filter}</Select.Label>
           {
             data.filters.map(value => (
-              <Select.Item value={value}>{value}</Select.Item>
+              <Select.Item key={value} value={value}>{value}</Select.Item>
             ))
           }
         </Select.Group>

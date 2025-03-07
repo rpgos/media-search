@@ -42,7 +42,7 @@ class ElasticsearchService
       index: index,
       body: {
         aggs: {
-          'photographers': {
+          'photographers': { # hardcoded value for testing purposes
             terms: {
               field: 'fotografen'
             }
@@ -51,7 +51,7 @@ class ElasticsearchService
       }
     )
 
-    aggregations = results['aggregations']['photographers']['buckets']
+    aggregations = results['aggregations']['photographers']['buckets'] # hardcoded value for testing purposes
     aggregations.map { |agg| agg['key'] }
   end
 
