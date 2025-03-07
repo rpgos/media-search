@@ -35,6 +35,26 @@ class ElasticsearchService
     raise
   end
 
+  def self.filter_values(filter_name, index = 'imago')
+    return [] unless filter_name.present?
+
+    results = client.search(
+      index: index,
+      body: {
+        aggs: {
+          'photographers': {
+            terms: {
+              field: 'fotografen'
+            }
+          }
+        }
+      }
+    )
+
+    aggregations = results['aggregations']['photographers']['buckets']
+    aggregations.map { |agg| agg['key'] }
+  end
+
   def self.build_search_body(query, filters, from)
     {
       query: {
@@ -74,7 +94,7 @@ class ElasticsearchService
     filter_conditions << { exists: { field: 'bildnummer' } }
     filter_conditions << { exists: { field: 'db' } }
 
-    filter_conditions << { term: { 'fotografen.keyword' => filters[:photographer] } } if filters[:photographer].present?
+    filter_conditions << { term: { 'fotografen' => filters[:photographer] } } if filters[:photographer].present?
     filter_conditions << { term: { 'db' => filters[:db] } } if filters[:db].present?
     filter_conditions << { range: { 'hoehe' => { gte: filters[:min_height].to_i } } } if filters[:min_height].present?
     filter_conditions << { range: { 'breite' => { gte: filters[:min_width].to_i } } } if filters[:min_width].present?
